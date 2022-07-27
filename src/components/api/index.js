@@ -2,6 +2,7 @@ import axios from "axios";
 const TMDB_BASE_URL = "https://api.themoviedb.org/3/";
 const APIkeyV3 = "2c30f7534b56c986f6347b858a832517";
 
+//  https://api.themoviedb.org/3/movie/000000/images?api_key=<<api_key>>&language=en-US
 
 export const getTranding = async () => {
   const { data } = await axios.get(
@@ -13,6 +14,13 @@ export const getTranding = async () => {
 export const getFilm = async (filmName) => {
   const { data } = await axios.get(
     `${TMDB_BASE_URL}search/movie?api_key=${APIkeyV3}&query=${filmName}`
+  );
+  return data;
+};
+
+export const getImages = async (movieId) => {
+  const { data } = await axios.get(
+    `${TMDB_BASE_URL}movie/${movieId}/images?api_key=${APIkeyV3}`
   );
   return data;
 };

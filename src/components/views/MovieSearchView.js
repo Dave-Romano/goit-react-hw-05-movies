@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { getFilm } from "../api/index";
 
@@ -40,7 +41,9 @@ const MoviesView = () => {
       {searchFilmName && (
         <ul>
           {searchFilmName.map((item) => (
-            <li key={item.id}>{item.title}</li>
+            <li key={item.id}>
+              <Link to={`/movies/${item.id}`}>{item.title}</Link>
+            </li>
           ))}
         </ul>
       )}
