@@ -1,26 +1,32 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { getFilm } from "../api/index";
 
 const MoviesView = () => {
   const [inputSearchWord, setInputSearchWord] = useState("");
-  const [searchWord, setSearchWord] = useState("");
   const [searchFilmName, setSearchfilmName] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputSearchWord.trim() === "") {
       return alert("please enter search word");
     }
-    setSearchWord(inputSearchWord);
+    setSearchParams({ search: inputSearchWord });
     getFilm(inputSearchWord).then((res) => {
       setSearchfilmName(res.results);
     });
     setInputSearchWord("");
   };
 
-  useEffect(() => {}, [inputSearchWord]);
+  useEffect(() => {
+    if (searchParams.get("search") !== null) {
+      getFilm(searchParams.get("search")).then((res) => {
+        setSearchfilmName(res.results);
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -32,9 +38,9 @@ const MoviesView = () => {
           autoComplete="off"
           autoFocus
           placeholder="search films"
-          onChange={(e) =>
-            setInputSearchWord(e.currentTarget.value.toLowerCase())
-          }
+          onChange={(e) => {
+            setInputSearchWord(e.currentTarget.value.toLowerCase());
+          }}
         ></input>
         <button type="submit">Submit</button>
       </form>

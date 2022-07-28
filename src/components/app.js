@@ -1,42 +1,32 @@
 import { Routes, Route } from "react-router-dom";
-import HomeView from "./views/HomeView";
-import MovieSearchView from "./views/MovieSearchView";
-import MovieView from "./views/MovieView";
-import NotFoundView from "./views/NotFoundView";
-
-import Cast from "./views/subviews/Cast";
-import Reviews from "./views/subviews/Reviews";
+import { lazy, Suspense } from "react";
 
 import Navigation from "./Navigation/Navigation";
 
-import {
-  getTranding,
-  getFilm,
-  getFilmInfo,
-  getFilmActors,
-  getFilmReviews,
-} from "./api/index";
-
 const app = () => {
+  const HomeView = lazy(() => import("./views/HomeView"));
+  const MovieSearchView = lazy(() => import("./views/MovieSearchView"));
+  const MovieView = lazy(() => import("./views/MovieView"));
+  const NotFoundView = lazy(() => import("./views/NotFoundView"));
+  const Cast = lazy(() => import("./views/subviews/Cast"));
+  const Reviews = lazy(() => import("./views/subviews/Reviews"));
+
   return (
     <>
       <Navigation />
-      <Routes>
-        <Route path="/" element={<HomeView />}></Route>
-        <Route path="/movies" element={<MovieSearchView />}></Route>
-        <Route path="*" element={<NotFoundView />}></Route>
-        <Route path="/movies/:id/" element={<MovieView />}>
-          <Route path="/movies/:id/cast" element={<Cast />}></Route>
-          <Route path="/movies/:id/reviews" element={<Reviews />}></Route>
-        </Route>
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<HomeView />}></Route>
+          <Route path="/movies" element={<MovieSearchView />}></Route>
+          <Route path="*" element={<NotFoundView />}></Route>
+          <Route path="/movies/:id/" element={<MovieView />}>
+            <Route path="cast" element={<Cast />}></Route>
+            <Route path="reviews" element={<Reviews />}></Route>
+          </Route>
+        </Routes>
+      </Suspense>
     </>
   );
 };
 
 export default app;
-
-// В пошуку додати шлях пошуку
-// Зробити кнопку go back
-// Зробити останній пункт домашки
-// Пофіксити шляхи до картинок

@@ -2,8 +2,6 @@ import axios from "axios";
 const TMDB_BASE_URL = "https://api.themoviedb.org/3/";
 const APIkeyV3 = "2c30f7534b56c986f6347b858a832517";
 
-//  https://api.themoviedb.org/3/movie/000000/images?api_key=<<api_key>>&language=en-US
-
 export const getTranding = async () => {
   const { data } = await axios.get(
     `${TMDB_BASE_URL}trending/movie/day?api_key=${APIkeyV3}`
@@ -45,11 +43,3 @@ export const getFilmReviews = async (movieId) => {
   );
   return data;
 };
-
-// trending today
-// MOVIE: name, picture, userScore, overview, genres
-// ADDITIONAL INFO: cast, reviews
-// CAST: picture, name, character
-// REVIEWS: author, textOfReview
-
-// SEARCH: searchWord

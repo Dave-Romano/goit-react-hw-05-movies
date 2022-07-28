@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, Outlet } from "react-router-dom";
+import { useParams, Link, Outlet, useNavigate } from "react-router-dom";
 
 import { getFilmInfo } from "../api/index";
 
@@ -9,14 +9,11 @@ const MovieView = () => {
   const [userScore, setUserScore] = useState(0);
   const [overview, setOverview] = useState("");
   const [genres, setGenres] = useState([]);
-  const [cast, setCast] = useState([]);
-  const [reviews, setReviews] = useState([]);
 
   const filmId = useParams().id;
 
   useEffect(() => {
     getFilmInfo(filmId).then((res) => {
-      //   console.log(res);
       setFilmImage(`https://image.tmdb.org/t/p/w500${res.poster_path}`);
       setFilmTitle(res.title);
       setOverview(res.overview);
@@ -25,9 +22,17 @@ const MovieView = () => {
     });
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <>
-      <button>Go back</button>
+      <button
+        onClick={() => {
+          navigate("/", { replace: false });
+        }}
+      >
+        Go back
+      </button>
       <div>
         <img width={300} src={filmImage} alt={filmTitle}></img>
       </div>

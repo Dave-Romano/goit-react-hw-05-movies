@@ -4,21 +4,15 @@ import { getFilmActors } from "../../api/index";
 
 export default function Cast() {
   const [castArray, setCastArray] = useState([]);
-  const [actorImage, setActorImage] = useState([]);
 
   const filmId = useParams().id;
   const baseUrl = "https://image.tmdb.org/t/p/w500";
-  //   console.log(filmId);
 
   useEffect(() => {
     getFilmActors(filmId).then((res) => {
       setCastArray(res.cast);
-      // setActorImage(res.cast.profile_path)
     });
   }, []);
-
-  console.log(castArray);
-
   return (
     <>
       <ul>
