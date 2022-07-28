@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getFilmReviews } from "../../api/index";
+import { getData } from "../../api/index";
 
 export default function Reviews() {
   const [reviewsArray, setReviewsArray] = useState([]);
 
-  const filmId = useParams().id;
+  const movieId = useParams().id;
 
   useEffect(() => {
-    getFilmReviews(filmId).then((res) => {
+    getData(`movie/${movieId}/reviews`, "&page=1").then((res) => {
       setReviewsArray(res.results);
     });
   }, []);

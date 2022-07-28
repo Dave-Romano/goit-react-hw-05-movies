@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getFilmActors } from "../../api/index";
+import { getData } from "../../api/index";
 
 export default function Cast() {
   const [castArray, setCastArray] = useState([]);
 
-  const filmId = useParams().id;
+  const movieId = useParams().id;
   const baseUrl = "https://image.tmdb.org/t/p/w500";
 
   useEffect(() => {
-    getFilmActors(filmId).then((res) => {
+    getData(`movie/${movieId}/credits`).then((res) => {
       setCastArray(res.cast);
     });
   }, []);

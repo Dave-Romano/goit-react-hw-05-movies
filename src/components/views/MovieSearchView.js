@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
-import { getFilm } from "../api/index";
+import { getData } from "../api/index";
 
 const MoviesView = () => {
   const [inputSearchWord, setInputSearchWord] = useState("");
@@ -14,7 +14,7 @@ const MoviesView = () => {
       return alert("please enter search word");
     }
     setSearchParams({ search: inputSearchWord });
-    getFilm(inputSearchWord).then((res) => {
+    getData("search/movie", `&query=${inputSearchWord}`).then((res) => {
       setSearchfilmName(res.results);
     });
     setInputSearchWord("");
@@ -22,7 +22,8 @@ const MoviesView = () => {
 
   useEffect(() => {
     if (searchParams.get("search") !== null) {
-      getFilm(searchParams.get("search")).then((res) => {
+      const query = `&query=${searchParams.get("search")}`;
+      getData("search/movie", query).then((res) => {
         setSearchfilmName(res.results);
       });
     }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, Outlet, useNavigate } from "react-router-dom";
 
-import { getFilmInfo } from "../api/index";
+import { getData } from "../api/index";
 
 const MovieView = () => {
   const [filmImage, setFilmImage] = useState("");
@@ -10,10 +10,10 @@ const MovieView = () => {
   const [overview, setOverview] = useState("");
   const [genres, setGenres] = useState([]);
 
-  const filmId = useParams().id;
+  const movieId = useParams().id;
 
   useEffect(() => {
-    getFilmInfo(filmId).then((res) => {
+    getData(`movie/${movieId}`).then((res) => {
       setFilmImage(`https://image.tmdb.org/t/p/w500${res.poster_path}`);
       setFilmTitle(res.title);
       setOverview(res.overview);
@@ -57,9 +57,9 @@ const MovieView = () => {
         <h4>Additional information</h4>
         <ul>
           <li>
-            <Link to={`/movies/${filmId}/cast`}>Cast</Link>
+            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
           </li>
-          <Link to={`/movies/${filmId}/reviews`}>Reviews</Link>
+          <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
         </ul>
         <hr />
       </div>

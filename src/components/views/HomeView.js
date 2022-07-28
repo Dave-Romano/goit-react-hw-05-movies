@@ -1,4 +1,4 @@
-import { getTranding } from "../api/index";
+import { getData } from "../api/index";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -6,7 +6,7 @@ const HomeView = () => {
   const [titlesArray, setTitlesArray] = useState([]);
 
   useEffect(() => {
-    getTranding().then((res) => {
+    getData("trending/movie/day").then((res) => {
       setTitlesArray(res.results);
     });
   }, []);
