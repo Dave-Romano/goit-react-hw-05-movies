@@ -11,6 +11,12 @@ const HomeView = () => {
     });
   }, []);
 
+  // Спитати у Макса
+  // (function () {
+  //   let message = "hello";
+  //   alert(message);
+  // })();
+
   return (
     <>
       <ul>

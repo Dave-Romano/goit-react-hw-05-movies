@@ -11,6 +11,9 @@ const app = () => {
   const Cast = lazy(() => import("./views/subviews/Cast"));
   const Reviews = lazy(() => import("./views/subviews/Reviews"));
 
+  // const test = [];
+  // console.log(typeof test);
+
   return (
     <>
       <Navigation />
@@ -30,3 +33,49 @@ const app = () => {
 };
 
 export default app;
+
+// Basic types TYPESCRIPT:
+// number
+// string
+// Boolean
+// null
+// undefined
+// Object
+// Symbol - new in ES6
+
+// boolean
+// let isCompleted: boolean = false;
+// --
+// number
+// let six: number = 6;
+// --
+// string
+// let name: string = "David";
+// let sentence: string = `hello my name is ${name}`;
+// --
+// undefined
+// const something: undefined = undefined;
+// --
+// null
+// const nothing: null = null;
+// --
+// void
+// це відсутній тип. Наприклад його можна
+// використати в функції, як нічого не повертає:
+// const greetings = (): void => {
+// alert("hello, nice to see you")
+// }
+// так, як функція нічого не повертає,
+// то тип данних для неї непотрібен
+// --
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
